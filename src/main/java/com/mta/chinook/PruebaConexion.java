@@ -5,21 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.List;
 
 public class PruebaConexion {
 	public static void main(String[] args) {
-        String url = "jdbc:sqlite:db/chinook.sqlite";
-        String sql = "SELECT COUNT(*) AS Total FROM Customer";
-        
-        try (Connection con = DriverManager.getConnection(url);
-        	 Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            	 
-            System.out.println("Clientes en la base: " + rs.getInt("Total"));
-             
-        } catch (SQLException e) {
-            System.out.println("Fallo la conexion: " + e.getMessage());
-        }
-    }
+		ReporteDAO dao = new ReporteDAO();
+
+		try {
+			List<ReporteCliente> clientes = dao.obtenerFacturacionPorCliente();
+			System.out.println("Clientes obtenidos: " + clientes.size());
+			System.out.println("Primero: " + clientes.get(0).getNombre());
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
 }
 
