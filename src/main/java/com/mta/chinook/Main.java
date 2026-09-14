@@ -9,7 +9,7 @@ public class Main {
 		ReporteConsola vista = new ReporteConsola();
 
 		try {
-			Filtros filtros = new Filtros(null, null, "Brazil", null);
+			Filtros filtros = vista.leerFiltros();
 			List<ReporteCliente> clientes = dao.obtenerFacturacionPorCliente(filtros);
 			vista.imprimir(clientes);
 
